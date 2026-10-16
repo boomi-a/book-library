@@ -2,8 +2,8 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
 import { AddBookPage } from './pages/AddBookPage';
 import { AdminPage } from './pages/AdminPage';
-import { DashboardPage } from './pages/DashboardPage';
 import { EditBookPage } from './pages/EditBookPage';
+import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 
@@ -17,7 +17,8 @@ function App() {
 
         {/* Protected: USER + ADMIN */}
         <Route element={<ProtectedRoute allowedRoles={['USER', 'ADMIN']} />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/dashboard" element={<HomePage />} />
           <Route path="/books/add" element={<AddBookPage />} />
           <Route path="/books/:id/edit" element={<EditBookPage />} />
         </Route>

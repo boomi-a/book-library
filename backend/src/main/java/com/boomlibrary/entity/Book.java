@@ -24,6 +24,10 @@ public class Book {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "library_id", nullable = false)
+    private Library library;
+
     @Column(name = "book_name", nullable = false)
     private String bookName;
 
