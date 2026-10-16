@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createBook } from '../api/bookApi';
 import { BookForm } from '../components/books/BookForm';
 import { Navbar } from '../components/layout/Navbar';
+import { useLibraryStore } from '../store/libraryStore';
 import type { BookRequest } from '../types/book.types';
 
 export const AddBookPage = () => {
@@ -14,7 +15,8 @@ export const AddBookPage = () => {
     setLoading(true);
     setError('');
     try {
-      await createBook(data);
+      const libraryId = useLibraryStore.getState().currentLibraryId ?? undefined;
+      await createBook({ ...data, libraryId });
       navigate('/dashboard');
     } catch {
       setError('Failed to save book. Please try again.');

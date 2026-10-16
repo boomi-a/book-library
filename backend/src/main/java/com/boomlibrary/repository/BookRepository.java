@@ -13,18 +13,22 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
 
     Optional<Book> findByIdAndUserId(UUID id, UUID userId);
 
+    List<Book> findByUserIdAndLibraryId(UUID userId, UUID libraryId);
+
     @Query("""
             SELECT b FROM Book b
             WHERE b.user.id = :userId
-              AND (:search IS NULL OR
-                   LOWER(b.bookName) LIKE LOWER(CONCAT('%', :search, '%'))
-                   OR LOWER(b.author) LIKE LOWER(CONCAT('%', :search, '%')))
+              AND b.library.id = :libraryId
+              AND (CAST(:search AS string) IS NULL OR
+                   LOWER(b.bookName) LIKE LOWER(CONCAT('%', CAST(:search AS string), '%'))
+                   OR LOWER(b.author) LIKE LOWER(CONCAT('%', CAST(:search AS string), '%')))
               AND (:category IS NULL OR b.category = :category)
               AND (:isRead IS NULL OR b.read = :isRead)
             ORDER BY b.createdAt DESC
             """)
     List<Book> searchBooks(
             @Param("userId") UUID userId,
+            @Param("libraryId") UUID libraryId,
             @Param("search") String search,
             @Param("category") String category,
             @Param("isRead") Boolean isRead

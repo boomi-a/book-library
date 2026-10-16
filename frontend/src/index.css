@@ -10,3 +10,15 @@ body {
 #root {
   min-height: 100vh;
 }
+
+/* Home page chart tokens (light surface, reference palette from the dataviz skill) */
+.viz-root {
+  --page: #f9f9f7;
+  --surface-1: #fcfcfb;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --baseline: #c3c2b7;
+  --track: #e1e0d9;
+  --series-1: #2a78d6;
+}
